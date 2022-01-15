@@ -10,38 +10,44 @@ public class playerMovement : MonoBehaviour
     private float velocity = 10.0f;
     private float rotateSpeed = 5.0f;
     private bool isGrounded=true;
+    private Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerAnimator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerAnimator.SetBool("isMoving",false);
         //character movement
         //Forward
         if (Input.GetKey(KeyCode.W))
         {
             turnPlayer();
+            playerAnimator.SetBool("isMoving", true);
             transform.Translate(Vector3.forward*Time.deltaTime*velocity,Space.Self);
         }
         //Backward
         if (Input.GetKey(KeyCode.S))
         {
             turnPlayer();
+            playerAnimator.SetBool("isMoving", true);
             transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
         }
         //Right
         if (Input.GetKey(KeyCode.D))
         {
             turnPlayer();
+            playerAnimator.SetBool("isMoving", true);
             transform.Translate(Vector3.right * Time.deltaTime * velocity,Space.Self);
         }
         //Left
         if (Input.GetKey(KeyCode.A))
         {
             turnPlayer();
+            playerAnimator.SetBool("isMoving", true);
             transform.Translate(-Vector3.right * Time.deltaTime * velocity,Space.Self);
         }
         //jump
