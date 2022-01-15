@@ -10,6 +10,7 @@ public class AimRaycast : MonoBehaviour
     public GameObject simpleBullet;
     public GameObject player;
     //PRIVATE VARIABLES
+    private Animator playerAnimator;
     private Image mouseCursorImage;
     private GameObject front;
     private GameObject hitObject;
@@ -22,11 +23,15 @@ public class AimRaycast : MonoBehaviour
         mouseCursorImage = mouseCursor.GetComponent<Image>();
         //get the front of the player
         front = player.transform.Find("front").gameObject;
+        //get the Animator
+        playerAnimator = player.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Shooting is False intialy
+        playerAnimator.SetBool("isShooting",false);
         //Ray casting from center of camera
         var ray = new Ray(transform.position, transform.forward);
         mouseCursorImage.color = new Color(1, 1, 1, 1);
@@ -52,6 +57,7 @@ public class AimRaycast : MonoBehaviour
 
     IEnumerator simpleBulletShoot()
     {
+        playerAnimator.SetBool("isShooting",true);
         float delay = 0.05f;
         float rotationAngle = Random.Range(0.5f, 0.9f);
         Instantiate(simpleBullet, (front.transform.forward * 0.5f) + front.transform.position, Quaternion.identity);
